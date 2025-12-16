@@ -17,6 +17,7 @@
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.1",
     "match-sorter": "^8.2.0",
+    "motion": "^12.23.26",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.10.1",
