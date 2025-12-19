@@ -3,10 +3,13 @@ import React, { useContext, useState } from "react";
 import registerLottieData from "../../assets/register.json";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+
   const handleRegister = (e) => {
     e.preventDefault();
     setPasswordError("");
@@ -25,6 +28,7 @@ const Register = () => {
       createUser(email, password)
         .then((res) => {
           console.log(res);
+          navigate('/');
         })
         .catch((error) => {
           console.log("Error =>", error.message);

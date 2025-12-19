@@ -1,9 +1,10 @@
-import { p } from "motion/react-client";
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const HotJobsCard = ({ job }) => {
   const {
+    _id,
     title,
     location,
     jobType,
@@ -47,7 +48,9 @@ const HotJobsCard = ({ job }) => {
             <span className="font-bold">Salary:</span> {salaryRange.min} -{" "}
             {salaryRange.max} {salaryRange.currency}
           </p>
-          <button className="btn btn-primary">Apply</button>
+          <Link to= {`/jobs/${_id}`}>
+            <button className="btn btn-primary">Apply</button>
+          </Link>
         </div>
       </div>
     </div>
