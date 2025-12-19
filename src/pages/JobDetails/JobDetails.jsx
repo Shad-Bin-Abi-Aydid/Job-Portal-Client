@@ -1,8 +1,9 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const JobDetails = () => {
   const {
+    _id,
     title,
     location,
     jobType,
@@ -22,7 +23,6 @@ const JobDetails = () => {
     // Force light background & readable text
     <div className="bg-gray-500 text-gray-900 min-h-screen rounded-2xl">
       <div className="max-w-6xl mx-auto px-4 py-10">
-        
         {/* Header Section */}
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-center bg-white shadow-md rounded-xl p-6">
           <img
@@ -51,25 +51,17 @@ const JobDetails = () => {
 
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-          
           {/* Left Section */}
           <div className="md:col-span-2 space-y-6">
-            
             {/* Job Description */}
             <div className="bg-white shadow-md rounded-xl p-6">
-              <h2 className="text-xl font-semibold mb-3">
-                Job Description
-              </h2>
-              <p className="text-gray-700 leading-relaxed">
-                {description}
-              </p>
+              <h2 className="text-xl font-semibold mb-3">Job Description</h2>
+              <p className="text-gray-700 leading-relaxed">{description}</p>
             </div>
 
             {/* Responsibilities */}
             <div className="bg-white shadow-md rounded-xl p-6">
-              <h2 className="text-xl font-semibold mb-3">
-                Responsibilities
-              </h2>
+              <h2 className="text-xl font-semibold mb-3">Responsibilities</h2>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
                 {responsibilities?.map((item, index) => (
                   <li key={index}>{item}</li>
@@ -79,9 +71,7 @@ const JobDetails = () => {
 
             {/* Requirements */}
             <div className="bg-white shadow-md rounded-xl p-6">
-              <h2 className="text-xl font-semibold mb-3">
-                Requirements
-              </h2>
+              <h2 className="text-xl font-semibold mb-3">Requirements</h2>
               <div className="flex flex-wrap gap-2">
                 {requirements?.map((req, index) => (
                   <span
@@ -97,14 +87,11 @@ const JobDetails = () => {
 
           {/* Right Section */}
           <div className="bg-white shadow-md rounded-xl p-6 h-fit">
-            <h2 className="text-xl font-semibold mb-4">
-              Job Summary
-            </h2>
+            <h2 className="text-xl font-semibold mb-4">Job Summary</h2>
 
             <div className="space-y-3 text-gray-700 text-sm">
               <p>
-                <strong>Salary:</strong>{" "}
-                {salaryRange.min} – {salaryRange.max}{" "}
+                <strong>Salary:</strong> {salaryRange.min} – {salaryRange.max}{" "}
                 {salaryRange.currency.toUpperCase()}
               </p>
               <p>
@@ -119,12 +106,11 @@ const JobDetails = () => {
             </div>
 
             {/* Apply Button */}
-            <button
-              className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
-              onClick={() => alert("Apply feature coming soon 🚀")}
-            >
-              Apply Now
-            </button>
+            <Link to={`/jobApply/${_id}`}> 
+              <button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                Apply Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
