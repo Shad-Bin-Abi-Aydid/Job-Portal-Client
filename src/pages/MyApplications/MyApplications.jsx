@@ -25,42 +25,45 @@ const MyApplications = () => {
               </th>
               <th>Name</th>
               <th>Job</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            
-            {
-                jobs.map(job => <tr key={job._id}>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={job.company_logo}
-                        alt="Avatar Tailwind CSS Component"
-                      />
+            {jobs.map((job) => (
+              <tr key={job._id}>
+                <th>
+                  <label>
+                    <input type="checkbox" className="checkbox" />
+                  </label>
+                </th>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={job.company_logo}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{job.company}</div>
+                      <div className="text-sm opacity-50">{job.location}</div>
                     </div>
                   </div>
-                  <div>
-                    <div className="font-bold">{job.company}</div>
-                    <div className="text-sm opacity-50">{job.location}</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                {job.title}
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </td>
-            </tr>)
-            }
+                </td>
+                <td>
+                  {job.title}
+                  <br />
+                  <span className="badge badge-ghost badge-sm">
+                    {job.category}
+                  </span>
+                </td>
+                <th>
+                  <button className="btn btn-ghost btn-xs">X</button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
