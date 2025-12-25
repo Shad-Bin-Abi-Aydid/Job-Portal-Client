@@ -39,7 +39,7 @@ const AddJob = () => {
             timer: 1500,
           });
 
-          navigate("/");
+          navigate("/myPostedJobs");
         }
       });
   };
@@ -181,6 +181,15 @@ const AddJob = () => {
             name="hr_email"
             className="input mb-5"
             placeholder="Hr Email"
+          />
+
+          {/* Application Deadline */}
+          <label className="label">Deadline</label>
+          <input
+            type="date"
+            name="deadline"
+            className="input mb-5"
+            placeholder="Deadline"
           />
 
           {/* Company Logo */}
