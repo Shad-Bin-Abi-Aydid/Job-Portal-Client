@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const MyApplications = () => {
   const { user } = useAuth();
@@ -7,9 +8,18 @@ const MyApplications = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/job-applications?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setJobs(data));
+    // fetch(`http://localhost:3000/job-applications?email=${user.email}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setJobs(data));
+
+    // using axios to fetch data. it will help to using jwt
+    axios
+      .get(`http://localhost:3000/job-applications?email=${user.email}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setJobs(res.data);
+      });
   }, [user.email]);
   return (
     <div>

@@ -4,33 +4,41 @@ import Lottie from "lottie-react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
-    const {loginUser} = useContext(AuthContext);
-    const [errorMessage, setErrorMessage] = useState('');
-    const location = useLocation();
-    const navigate = useNavigate();
+  const { loginUser } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const from  = location.state || '/';
+  const from = location.state || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
 
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
     loginUser(email, password)
-    .then(result =>{
-        console.log('Sign in ', result.user);
-        navigate(from);
-        
-    })
-    .catch(error =>{
-        console.log('Error is ', error.message);
+      .then((result) => {
+        console.log("Sign in ", result.user);
+        const user = { email: email };
+
+        axios
+          .post("http://localhost:3000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+          });
+
+        // navigate(from);
+      })
+      .catch((error) => {
+        console.log("Error is ", error.message);
         setErrorMessage(error.message);
-    })
+      });
 
     console.log(email, password);
   };
