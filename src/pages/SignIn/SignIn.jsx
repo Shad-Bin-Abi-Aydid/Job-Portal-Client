@@ -25,13 +25,13 @@ const SignIn = () => {
     loginUser(email, password)
       .then((result) => {
         console.log("Sign in ", result.user);
-        const user = { email: email };
+        // const user = { email: email };
 
-        axios
-          .post("http://localhost:3000/jwt", user, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-          });
+        // axios
+        //   .post("http://localhost:3000/jwt", user, { withCredentials: true })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //   });
 
         // navigate(from);
       })

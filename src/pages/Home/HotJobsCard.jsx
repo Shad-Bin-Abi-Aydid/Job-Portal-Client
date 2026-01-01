@@ -39,7 +39,7 @@ const HotJobsCard = ({ job }) => {
 
         <p className="flex flex-wrap">
           {requirements.map((item) => (
-            <p className="border rounded-xl text-center m-1">{item}</p>
+            <p key={item._id} className="border rounded-xl text-center m-1">{item}</p>
           ))}
         </p>
 
