@@ -29,7 +29,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/jobs/${params.id}`),
+          fetch(`https://job-portal-server-sigma-rouge.vercel.app/jobs/${params.id}`),
       },
       {
         path: "/jobApply/:id",
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
             <ViewApplications></ViewApplications>
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/job-applications/jobs/${params.job_id}`)
+        loader: ({params}) => fetch(`https://job-portal-server-sigma-rouge.vercel.app/job-applications/jobs/${params.job_id}`)
       },
       {
         path: "myPostedJobs",

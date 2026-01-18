@@ -28,7 +28,7 @@ const SignIn = () => {
         // const user = { email: email };
 
         // axios
-        //   .post("http://localhost:3000/jwt", user, { withCredentials: true })
+        //   .post("https://job-portal-server-sigma-rouge.vercel.app/jwt", user, { withCredentials: true })
         //   .then((res) => {
         //     console.log(res.data);
         //   });

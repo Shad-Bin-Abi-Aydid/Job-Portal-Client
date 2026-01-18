@@ -23,12 +23,11 @@ const Banner = () => {
         </div>
         <div className="flex-1">
           <motion.h1
-            
             initial={{ y: 0 }}
             animate={{ y: [-5, 5, -5] }}
             transition={{
               duration: 2,
-              ease: 'easeInOut',
+              ease: "easeInOut",
               repeat: Infinity,
             }}
             className="text-5xl font-bold"
@@ -43,11 +42,10 @@ const Banner = () => {
             For You!
           </motion.h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Discover opportunities that match your skills and ambitions. Explore
+            roles from trusted employers and take the next step in your career
+            journey today.
           </p>
-          <button className="btn btn-primary">Get Started</button>
         </div>
       </div>
     </div>

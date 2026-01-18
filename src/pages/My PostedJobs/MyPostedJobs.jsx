@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyPostedJobs = () => {
   const { user } = useAuth();
   const [jobs, setJobs] = useState([]);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/jobs?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setJobs(data);
-      });
-  }, [user.email]);
+    axiosSecure(`https://job-portal-server-sigma-rouge.vercel.app/jobs?email=${user.email}`).then(
+      (res) => {
+        setJobs(res.data);
+      }
+    );
+  }, [user.email, axiosSecure]);
+
+  const handleDelete = (id) => {
+    axiosSecure.delete(`/jobs/${id}`).then((res) => {
+      if (res.data.deletedCount > 0) {
+        setJobs((prev) => prev.filter((job) => job._id !== id));
+      }
+    });
+  };
+
   return (
     <div>
       <h2>My Posted Jobs: {jobs.length}</h2>
@@ -42,7 +53,7 @@ const MyPostedJobs = () => {
                     <button className="btn btn-link">View Applications</button>
                   </Link>
                 </td>
-                <td>
+                <td onClick={() => handleDelete(job._id)}>
                   <button className="btn btn-ghost">X</button>
                 </td>
               </tr>

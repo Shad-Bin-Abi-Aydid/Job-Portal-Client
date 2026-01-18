@@ -11,18 +11,19 @@ const MyApplications = () => {
 
   useEffect(() => {
     // using axios to fetch data. it will help to using jwt
-    // axios
-    //   .get(`http://localhost:3000/job-applications?email=${user.email}`, {
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     setJobs(res.data);
-    //   });
-
     axiosSecure.get(`/job-applications?email=${user.email}`).then((res) => {
       setJobs(res.data);
     });
-  }, [user.email]);
+  }, [user.email, axiosSecure]);
+
+  const handleDelete = (id) => {
+    axiosSecure.delete(`/job-applications/${id}`).then((res) => {
+      if (res.data.deletedCount > 0) {
+        setJobs((prev) => prev.filter((job) => job._id !== id));
+      }
+    });
+  };
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -71,7 +72,7 @@ const MyApplications = () => {
                     {job.category}
                   </span>
                 </td>
-                <th>
+                <th onClick={() => handleDelete(job._id)}>
                   <button className="btn btn-ghost btn-xs">X</button>
                 </th>
               </tr>

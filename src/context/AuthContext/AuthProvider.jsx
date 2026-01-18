@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
 
         // when signIn then we doing some process to make a token.
         axios
-          .post("http://localhost:3000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-sigma-rouge.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => {
             console.log("LogIn token ", res.data);
             setLoading(false);
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
         // When logout then clear the token from the cookies
         axios
           .post(
-            "http://localhost:3000/logout",
+            "https://job-portal-server-sigma-rouge.vercel.app/logout",
             {},
             {
               withCredentials: true,

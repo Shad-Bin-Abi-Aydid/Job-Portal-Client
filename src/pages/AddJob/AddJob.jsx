@@ -20,7 +20,7 @@ const AddJob = () => {
     console.log(newJob);
 
     //  Now send the data to the backend
-    fetch("http://localhost:3000/jobs", {
+    fetch("https://job-portal-server-sigma-rouge.vercel.app/jobs", {
       method: "POST",
       headers: {
         "content-type": "application/json",

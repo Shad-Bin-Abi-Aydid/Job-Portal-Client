@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
         <Link to='/' className="btn btn-ghost text-xl" >
           <img className="w-12" src={jobIcon} alt="" />
-          <h3 className="text-xl">Job Portal</h3>
+          <h3 className="text-xl">CareerConnect</h3>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
