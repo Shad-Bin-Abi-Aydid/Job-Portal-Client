@@ -2,10 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { FiBriefcase } from "react-icons/fi";
 
 const AddJob = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const handleAddJob = (e) => {
     e.preventDefault();
 
@@ -14,197 +16,212 @@ const AddJob = () => {
     const { min, max, currency, ...newJob } = initialData;
 
     newJob.salaryRange = { min, max, currency };
-    newJob.requirements = newJob.requirements.split("\n");
-    newJob.responsibilities = newJob.responsibilities.split("\n");
+    newJob.requirements = newJob.requirements.split("\n").filter(Boolean);
+    newJob.responsibilities = newJob.responsibilities.split("\n").filter(Boolean);
 
-    console.log(newJob);
-
-    //  Now send the data to the backend
     fetch("https://job-portal-server-sigma-rouge.vercel.app/jobs", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(newJob),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           Swal.fire({
-            position: "middle",
+            position: "center",
             icon: "success",
             title: "Job Published Successfully",
             showConfirmButton: false,
             timer: 1500,
           });
-
           navigate("/myPostedJobs");
         }
       });
   };
 
+  const inputClass =
+    "w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all bg-white";
+
+  const selectClass =
+    "w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all bg-white";
+
+  const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
+
   return (
-    <div>
-      <h2 className="text-3xl">Post a New Job</h2>
+    <div className="min-h-screen bg-slate-50 py-10 px-4">
+      <div className="max-w-3xl mx-auto">
+        {/* Page header */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
+            <FiBriefcase className="w-5 h-5 text-indigo-600" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Post a New Job</h1>
+            <p className="text-sm text-gray-500">Fill in the details to publish your job listing</p>
+          </div>
+        </div>
 
-      <form onSubmit={handleAddJob} className="card-body">
-        <fieldset className="fieldset ">
-          {/* Title */}
-          <label className="label">Job Title</label>
-          <input
-            type="text"
-            name="title"
-            className="input mb-5"
-            placeholder="Job Title"
-          />
+        <form onSubmit={handleAddJob} className="space-y-6">
+          {/* Basic Info */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-50 pb-3">
+              Basic Information
+            </h2>
 
-          {/* Location */}
-          <label className="label">Job Location</label>
-          <input
-            type="text"
-            name="location"
-            className="input mb-5"
-            placeholder="Job Location"
-          />
-
-          {/* Job Type */}
-          <label className="label">Job Type</label>
-          <select
-            defaultValue="Pick a Job type"
-            className="select select-info mb-5"
-          >
-            <option disabled={true}>Pick a Job type</option>
-            <option>Full-Time</option>
-            <option>Part-Time</option>
-            <option>Hybrid</option>
-            <option>Intern</option>
-          </select>
-
-          {/* Job Category */}
-          <label className="label">Job Field</label>
-          <select
-            defaultValue="Pick a Job Field"
-            className="select select-info mb-5"
-          >
-            <option disabled={true}>Pick a Job Field</option>
-            <option>Engineering</option>
-            <option>Finance</option>
-            <option>Doctor</option>
-            <option>Teaching</option>
-          </select>
-
-          {/* Salary Range*/}
-
-          <label className="label ">Salary: </label>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div>
-              <input
-                type="text"
-                name="min"
-                className="input mb-5"
-                placeholder="Min"
-                required
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className={labelClass}>Job Title</label>
+                <input type="text" name="title" required placeholder="e.g. Senior React Developer" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Company Name</label>
+                <input type="text" name="company" required placeholder="e.g. Acme Corp" className={inputClass} />
+              </div>
             </div>
-            <div>
-              <input
-                type="text"
-                name="max"
-                className="input mb-5"
-                placeholder="Max"
-                required
-              />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className={labelClass}>Job Type</label>
+                <select name="jobType" defaultValue="" className={selectClass}>
+                  <option value="" disabled>Select job type</option>
+                  <option>Full-Time</option>
+                  <option>Part-Time</option>
+                  <option>Hybrid</option>
+                  <option>Intern</option>
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Job Field / Category</label>
+                <select name="category" defaultValue="" className={selectClass}>
+                  <option value="" disabled>Select category</option>
+                  <option>Engineering</option>
+                  <option>Finance</option>
+                  <option>Doctor</option>
+                  <option>Teaching</option>
+                </select>
+              </div>
             </div>
+
             <div>
-              <select
-                name="currency"
-                defaultValue="Currency"
-                className="select select-info mb-5"
-              >
-                <option disabled>Currency</option>
-                <option>BDT</option>
-                <option>GDP</option>
-                <option>USD</option>
-                <option>INR</option>
-              </select>
+              <label className={labelClass}>Location</label>
+              <input type="text" name="location" required placeholder="e.g. Dhaka, Bangladesh" className={inputClass} />
             </div>
           </div>
 
-          {/* Job Descriptions */}
-          <label className="label">Job Description</label>
-          <textarea
-            className="textarea w-2/3 mb-5"
-            placeholder="Job Description"
-            name="description"
-          ></textarea>
+          {/* Salary */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-50 pb-3">
+              Salary Range
+            </h2>
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className={labelClass}>Minimum</label>
+                <input type="number" name="min" required placeholder="e.g. 30000" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Maximum</label>
+                <input type="number" name="max" required placeholder="e.g. 60000" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Currency</label>
+                <select name="currency" defaultValue="" className={selectClass}>
+                  <option value="" disabled>Select</option>
+                  <option>BDT</option>
+                  <option>USD</option>
+                  <option>GBP</option>
+                  <option>INR</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-          {/* Company Name */}
-          <label className="label">Company Name</label>
-          <input
-            type="text"
-            name="company"
-            className="input mb-5"
-            placeholder="Company Name"
-          />
+          {/* Details */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-50 pb-3">
+              Job Details
+            </h2>
 
-          {/* Job Requirements */}
-          <label className="label">Job Requirements</label>
-          <textarea
-            className="textarea  mb-5"
-            placeholder="Each Requirements in new a line"
-            name="requirements"
-          ></textarea>
+            <div>
+              <label className={labelClass}>Job Description</label>
+              <textarea
+                name="description"
+                required
+                rows={4}
+                placeholder="Describe the role, team, and what the candidate will be working on..."
+                className={`${inputClass} resize-none`}
+              />
+            </div>
 
-          {/* Job Responsibilities */}
-          <label className="label">Job Responsibilities</label>
-          <textarea
-            className="textarea  mb-5"
-            placeholder="Each Responsibility in new a line"
-            name="responsibilities"
-          ></textarea>
+            <div>
+              <label className={labelClass}>Requirements</label>
+              <p className="text-xs text-gray-400 mb-1.5">One requirement per line</p>
+              <textarea
+                name="requirements"
+                required
+                rows={4}
+                placeholder={"React.js\nNode.js\n3+ years experience"}
+                className={`${inputClass} resize-none`}
+              />
+            </div>
 
-          {/* HR Name */}
-          <label className="label">HR Name</label>
-          <input
-            type="text"
-            name="hr_name"
-            className="input mb-5"
-            placeholder="HR Name"
-          />
+            <div>
+              <label className={labelClass}>Responsibilities</label>
+              <p className="text-xs text-gray-400 mb-1.5">One responsibility per line</p>
+              <textarea
+                name="responsibilities"
+                required
+                rows={4}
+                placeholder={"Build and maintain web applications\nCollaborate with design team\nWrite clean, tested code"}
+                className={`${inputClass} resize-none`}
+              />
+            </div>
+          </div>
 
-          {/* HR Email */}
-          <label className="label">HR Email</label>
-          <input
-            defaultValue={user?.email}
-            type="email"
-            name="hr_email"
-            className="input mb-5"
-            placeholder="Hr Email"
-          />
+          {/* HR & Meta */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-50 pb-3">
+              HR & Deadline
+            </h2>
 
-          {/* Application Deadline */}
-          <label className="label">Deadline</label>
-          <input
-            type="date"
-            name="deadline"
-            className="input mb-5"
-            placeholder="Deadline"
-          />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className={labelClass}>HR Name</label>
+                <input type="text" name="hr_name" required placeholder="HR contact name" className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>HR Email</label>
+                <input
+                  type="email"
+                  name="hr_email"
+                  required
+                  defaultValue={user?.email}
+                  placeholder="hr@company.com"
+                  className={inputClass}
+                />
+              </div>
+            </div>
 
-          {/* Company Logo */}
-          <label className="label">Company Logo URL</label>
-          <input
-            type="text"
-            name="company_logo"
-            className="input mb-5"
-            placeholder="Company Logo URL"
-          />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className={labelClass}>Application Deadline</label>
+                <input type="date" name="applicationDeadline" required className={inputClass} />
+              </div>
+              <div>
+                <label className={labelClass}>Company Logo URL</label>
+                <input type="url" name="company_logo" placeholder="https://..." className={inputClass} />
+              </div>
+            </div>
+          </div>
 
-          {/* Submit */}
-          <button className="btn btn-neutral mb-4">Submit</button>
-        </fieldset>
-      </form>
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl transition-colors shadow-sm text-sm"
+          >
+            <FiBriefcase className="w-4 h-4" />
+            Publish Job Listing
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
