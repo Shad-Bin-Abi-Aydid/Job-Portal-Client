@@ -2,7 +2,7 @@
 
 A full-stack job portal web application where employers can post jobs and candidates can browse and apply. Built with React, Firebase, and a custom Express REST API.
 
-🔗 **Live Demo:** [https://job-portal-52572.firebaseapp.com](https://job-portal-52572.firebaseapp.com)  
+🔗 **Live Demo:** https://job-portal-52572.web.app  
 🔗 **Backend Repo:** [Job-Portal-Server](https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Server)
 
 ---
