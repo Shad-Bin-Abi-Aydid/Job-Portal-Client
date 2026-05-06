@@ -1,101 +1,147 @@
-# 💼 Job Portal — Client
+# 💼 CareerConnect — Job Portal
 
-A full-stack job portal web application where employers can post jobs and candidates can browse and apply. Built with React, Firebase, and a custom Express REST API.
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite)
+![Firebase](https://img.shields.io/badge/Firebase-Auth_&_Hosting-FFCA28?style=for-the-badge&logo=firebase)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwind-css)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript)
 
-🔗 **Live Demo:** https://job-portal-52572.web.app  
-🔗 **Backend Repo:** [Job-Portal-Server](https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Server)
+> A full-stack job portal where employers can post and manage listings while candidates browse, apply, and track their applications — secured with Firebase authentication and JWT-protected APIs.
+
+**🌐 Live Demo:** [https://job-portal-52572.web.app](https://job-portal-52572.web.app)
 
 ---
 
 ## ✨ Features
 
-- 🔐 Firebase Authentication (Email/Password & Google Sign-In)
-- 📋 Browse and search available job listings
-- 📝 Job application submission
-- 🏢 Employers can post and manage job listings
-- 🔒 JWT-based route protection for authenticated actions
-- 📱 Fully responsive UI with Tailwind CSS and DaisyUI
-- ✨ Smooth animations powered by Motion (Framer Motion)
-- 🔔 Interactive alerts and confirmations with SweetAlert2
+- 🔐 Firebase authentication — email/password and Google OAuth
+- 👔 Employer dashboard — post, edit, and manage job listings
+- 🎯 Candidate dashboard — browse, apply, and track applications
+- 🔑 JWT-protected API routes for secure data access
+- 🔍 Job search and filtering functionality
+- 🎨 Smooth animations with Motion and Lottie React
+- 📱 Fully responsive design with Tailwind CSS and DaisyUI
+- 🚀 Deployed on Firebase Hosting
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
+### Frontend
+| Technology | Purpose |
 |---|---|
-| Framework | React 19 |
-| Build Tool | Vite |
-| Styling | Tailwind CSS v4, DaisyUI v5 |
-| Authentication | Firebase Auth |
-| HTTP Client | Axios |
-| Routing | React Router DOM v7 |
-| Animations | Motion, Lottie React |
-| Alerts | SweetAlert2 |
-| Deployment | Firebase Hosting |
+| React 19 | UI framework |
+| Vite 7 | Build tool and dev server |
+| JavaScript (ES6+) | Primary language |
+| Tailwind CSS v4 | Utility-first styling |
+| DaisyUI v5 | Pre-built UI components |
+| React Router DOM v7 | Client-side routing |
+| Axios | HTTP requests to backend API |
+| Firebase | Authentication and hosting |
+| Motion | Page and component animations |
+| Lottie React | JSON-based animations |
+| SweetAlert2 | User feedback modals |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| Node.js | JavaScript runtime |
+| Express.js | REST API framework |
+| MongoDB | NoSQL database |
+| JWT | API route protection |
+
+> 🔗 Backend repository: [Job-Portal-Server](https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Server)
 
 ---
 
-## 🚀 Getting Started
+## 🏗️ Project Structure
+
+```
+src/
+├── assets/         # Images and static resources
+├── components/     # Reusable UI components
+├── contexts/       # React Context — AuthContext
+├── hooks/          # Custom React hooks
+├── pages/          # Route-specific page components
+├── routes/         # Route configuration & protected routes
+└── main.jsx        # Application entry point
+```
+
+---
+
+## 🔐 Authentication Flow
+
+```
+Register / Google OAuth → Firebase Auth → JWT Token → Protected API Routes
+```
+
+- Authentication is handled by Firebase (email/password + Google OAuth)
+- On login, a JWT token is issued for backend API access
+- Protected routes validate the token before returning data
+
+---
+
+## 🚀 Getting Started Locally
 
 ### Prerequisites
 - Node.js v18+
-- A Firebase project ([create one here](https://console.firebase.google.com))
+- A Firebase project ([firebase.google.com](https://firebase.google.com))
+- Backend server running locally
 
 ### 1. Clone the repository
-
 ```bash
 git clone https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Client.git
 cd Job-Portal-Client
 ```
 
 ### 2. Install dependencies
-
 ```bash
 npm install
 ```
 
-### 3. Set up environment variables
-
-Create a `.env` file in the root directory and add your Firebase config:
-
+### 3. Configure environment variables
+Create a `.env` file in the root:
 ```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
+VITE_apiKey=your_firebase_api_key
+VITE_authDomain=your_firebase_auth_domain
+VITE_projectId=your_firebase_project_id
+VITE_storageBucket=your_firebase_storage_bucket
+VITE_messagingSenderId=your_firebase_messaging_sender_id
+VITE_appId=your_firebase_app_id
 VITE_API_URL=http://localhost:5000
 ```
 
 ### 4. Run the development server
-
 ```bash
 npm run dev
 ```
 
-The app will be running at `http://localhost:5173`
-
-> Make sure the backend server is also running. See the [Server README](https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Server).
+Frontend runs at **http://localhost:5173**
 
 ---
 
-## 📁 Project Structure
+## 🌐 Deployment
 
+This project is deployed on **Firebase Hosting**.
+
+```bash
+npm run build
+firebase deploy
 ```
-src/
-├── assets/         # Images and static files
-├── components/     # Reusable UI components
-├── contexts/       # React Context (AuthContext, etc.)
-├── hooks/          # Custom React hooks
-├── pages/          # Route-level page components
-├── routes/         # Route configuration
-└── main.jsx        # App entry point
-```
+
+> Make sure `firebase.json` has `"public": "dist"` and rewrites configured for React Router.
 
 ---
 
-## 🔗 Related
+## 👨‍💻 Author
 
-- **Backend:** [Job-Portal-Server](https://github.com/Shad-Bin-Abi-Aydid/Job-Portal-Server) — Express REST API with MongoDB and JWT auth
+**Shad Bin Abi Aydid**
+- Portfolio: [shadaydid.com](https://shadaydid.com)
+- GitHub: [@Shad-Bin-Abi-Aydid](https://github.com/Shad-Bin-Abi-Aydid)
+- LinkedIn: [shad-aydid](https://www.linkedin.com/in/shad-aydid)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
